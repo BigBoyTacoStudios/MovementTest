@@ -188,15 +188,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Collider>().tag == "walljump")
+        if(other.tag == "walljump")
         {
             wallCollide = true;
         }
-        if(other.GetComponent<Collider>().tag != "walljump")
+        if(other.tag != "walljump")
         {
             wallCollide = false;
         }
-        if(other.GetComponent<Collider>().name == colliderName)
+        if(other.name == colliderName)
         {
             sameWall = true;
         }
@@ -204,12 +204,16 @@ public class PlayerMovement : MonoBehaviour
         {
             sameWall = false;
         }
-        colliderName = other.GetComponent<Collider>().name;
+        colliderName = other.name;
         wallJumpCheck();
     }
     private void OnTriggerExit(Collider other) 
     {
         wallCollide = false;
+        if(other.tag == "walljump")
+        {
+            disableWall();
+        }
     }
     public void disableWall()
     {
